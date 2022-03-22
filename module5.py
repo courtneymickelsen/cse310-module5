@@ -83,6 +83,7 @@ def view_menu():
         elif value == 5:
             view_all_clients()
         elif value == 6:
+            conn.close()
             print("\nThank you! Your data has been saved.\n\n")
             pass
         else:
@@ -90,10 +91,11 @@ def view_menu():
             view_menu()
 
 def main():
-    
-    # create_table() # please comment out this line of code after running the first time
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='clients'")
+    rows = c.fetchall()
+    if len(rows) != 1:
+        create_table()
     view_menu()
-    conn.close()
 
 if __name__ == "__main__":
     main()
